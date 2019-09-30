@@ -1,23 +1,23 @@
-const db = require('../database');
-var connection = db.connection;
+const Sequelize = require('sequelize');
+const connection = require('../database');
 
-class User extends db.sequelize.Model {}
+class User extends Sequelize.Model {}
 User.init({
     id: {
-        type: db.sequelize.INTEGER,
+        type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
         allowNull: false
     },
 
     username: {
-        type: db.sequelize.STRING(20),
+        type: Sequelize.STRING(20),
         allowNull: false,
         unique: true
     },
     
     password: {
-        type: db.sequelize.STRING(65),
+        type: Sequelize.STRING(65),
         allowNull: false
     }
 }, {

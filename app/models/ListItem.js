@@ -1,28 +1,27 @@
-const db = require('../database');
+const Sequelize = require('sequelize');
+const connection = require('../database');
 
-var connection = db.connection;
-
-class ListItem extends db.sequelize.Model {}
+class ListItem extends Sequelize.Model {}
 ListItem.init({
     id: {
-        type: db.sequelize.INTEGER,
+        type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
         allowNull: false
     },
 
     title: {
-        type: db.sequelize.STRING(256),
+        type: Sequelize.STRING(256),
         allowNull: false
     },
     
     listId: {
-        type: db.sequelize.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false
     },
 
     isDone: {
-        type: db.sequelize.BOOLEAN,
+        type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false
     }

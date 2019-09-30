@@ -1,5 +1,11 @@
 <%- include('parts/header') %>
 
+<% if (name) { %>
+<h3>Привет, <%= name -%>!</h3>
+<% } %>
+
+<p><a href="/sign-out">Выйти из системы</a></p>
+
 <p><%= text -%></p>
 
 <%- include('parts/footer') %>

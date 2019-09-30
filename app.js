@@ -1,75 +1,80 @@
+/*===== DEFINING CONSTATNS =====*/
+
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const userModel = require('./app/models/User');
-
 const app = express();
+const session = require('express-session');
+ 
+const passport = require('passport');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+const passportConfig = require('./app/passportConfig');
+const connection = require('./app/database');
+
+
+/*===== MODELS =====*/
+
+require('./app/models/User');
+require('./app/models/Group');
+require('./app/models/UserGroup');
+require('./app/models/List');
+require('./app/models/ListItem');
+require('./app/models/Session');
+
+
+/*===== CONFIGURATIONS =====*/
+
+passportConfig(passport);
+app.use(session({
+    secret: 'SHOPPING_LIST_SECRET',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 30 * 24 * 60 * 60 * 1000, // 1 month
+    },
+    store: new SequelizeStore({
+        db: connection,
+        table: 'session',
+    }),
+}));
+
 app.set('view engine', 'ejs');
 app.set('views', './app/views/');
-app.set('models', './app/models/');
+
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('./public/'));
 
-app.get('/', (req, res) => {
-    var data = {
-        title: "Custom title!",
-        text: "lorem Ipsim text!!!"
-    };
-    res.render('index', data);
-});
 
-app.get('/sign-up', (req, res) => {
-    var data = {title: "Регистрация"};
-    res.render('sign-up', data);
-});
-app.post('/sign-up', (req, res) => {
-    var body = req.body;
-    if (body.password == body.password_confirm) {
-        userModel
-            .findOne({
-                where: {username: body.username},
-                attributes: ['id']
-            })
-            .then(user => {
-                if (user != null) {
-                    res.render('index', {title: "Регистрация", text: "Пользователь с таким именем уже существует!"});
-                    return;
-                }
-                userModel
-                    .create({
-                        username: body.username,
-                        password: body.password
-                    })
-                    .then(() => {
-                        res.render('index', {title: "Регистрация", text: "Вы успешно зарегистрированы!"});
-                    })
-                    .catch(err => {
-                        res.render('index', {title: "Регистрация", text: "В процессе обработки данных возникла ошибка!<br>" + err});
-                    });
-            })
-            .catch(err => {
-                res.render('index', {title: "Регистрация", text: "Возникла неизвестная ошибка! Посторите позже.<br>" + err});
-            });
-    } else {
-        res.render('index', {title: "Регистрация", text: "Пароли не совпадают!"});
-    }
+/*===== ROUTES =====*/
+
+app.get('/', require('./app/routes/get/index'));
+
+app.get('/sign-up', require('./app/routes/get/sign-up'));
+app.post('/sign-up', require('./app/routes/post/sign-up'));
+
+app.get('/sign-in', require('./app/routes/get/sign-in'));
+app.post('/sign-in', require('./app/routes/post/sign-in'));
+
+app.all('/sign-out', require('./app/routes/sign-out'));
+
+
+// Error handling 404
+app.use(function(req, res, next){
+    res.status(404);
+    res.render('404');
 });
 
-app.get('/sign-in', (req, res) => {
-    var data = {title: "Авторизация"};
-    res.render('sign-in', data);
+// Error handling 500
+/*
+app.use(function(err, req, res, next){
+    res.status(err.status || 500);
+    res.render('500', { error: err });
 });
-app.post('/sign-in', (req, res) => {
-    var body = req.body;
-    userModel
-        .findOne({
-            where: {username: body.username}
-        })
-        .then(user => {
-            res.render('index', {title: "Авторизация", text: "OK => " + JSON.stringify(user)});
-        })
-        .catch(err => {
-            res.render('index', {title: "Авторизация", text: "Fail => " + err});
-        });
-});
+*/
+
+/*===== LISTEN =====*/
 
 app.listen(3000, () => console.log("Server listening on port 3000."));

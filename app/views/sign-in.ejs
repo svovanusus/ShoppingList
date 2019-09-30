@@ -1,9 +1,21 @@
 <%- include('parts/header') %>
 
+<% if (err) { %>
+    <div class="error">
+        <% if (err == 'LoginError') { %>
+            <p>Неверно введены логин или пароль!</p>
+        <% } else { %>
+            <p>Возникла неизвестная ошибка!</p>
+        <% } %>
+    </div>
+<% } %>
+
 <form action="" method="post">
-        <input type="text" name="username" id="username" placeholder="Имя пользователя">
-        <input type="password" name="password" id="password" placeholder="Пароль">
-        <input type="submit" value="Войти">
-    </form>
+    <input type="text" name="username" id="username" placeholder="Имя пользователя">
+    <input type="password" name="password" id="password" placeholder="Пароль">
+    <input type="submit" value="Войти">
+</form>
+
+<p>Ещё нет аккаунта? <a href="/sign-up">Зарегистрируйся</a>!</p>
 
 <%- include('parts/footer') %>

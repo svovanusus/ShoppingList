@@ -1,17 +1,16 @@
-const db = require('../database');
+const Sequelize = require('sequelize');
+const connection = require('../database');
 
-var connection = db.connection;
-
-class UserGroup extends db.sequelize.Model {}
+class UserGroup extends Sequelize.Model {}
 UserGroup.init({
     userId: {
-        type: db.sequelize.INTEGER,
+        type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false
     },
 
     groupId: {
-        type: db.sequelize.INTEGER,
+        type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false
     }
