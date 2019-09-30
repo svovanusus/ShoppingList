@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
 
     passport.authenticate('local', function(err, user) {
         if (err) { return next(err); }
-        if (!user) { return res.redirect('?error=LoginError'); }
+        if (!user) { return res.render('sign-in', {title: 'Авторизация', user: req.user, error: 'Неверно введены логин или пароль!'}); }
         req.logIn(user, function(err) {
             if (err) { return next(err); }
             req.session.save((err) => {

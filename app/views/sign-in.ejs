@@ -1,21 +1,40 @@
 <%- include('parts/header') %>
 
-<% if (err) { %>
-    <div class="error">
-        <% if (err == 'LoginError') { %>
-            <p>Неверно введены логин или пароль!</p>
-        <% } else { %>
-            <p>Возникла неизвестная ошибка!</p>
-        <% } %>
+<% if (typeof message !== 'undefined' && message != null) { %>
+    <div id="notify-info">
+        <p><%= message -%></p>
     </div>
+    <script>
+        var notify = document.getElementById('notify-info');
+        setTimeout(() => {
+            notify.className += ' rm';
+            setTimeout(() => notify.remove(), 200);
+        }, 10000);
+    </script>
 <% } %>
 
-<form action="" method="post">
-    <input type="text" name="username" id="username" placeholder="Имя пользователя">
-    <input type="password" name="password" id="password" placeholder="Пароль">
-    <input type="submit" value="Войти">
-</form>
+<% if (typeof error !== 'undefined' && error != null) { %>
+    <div id="notify-error">
+        <p><%= error -%></p>
+    </div>
+    <script>
+        var notify = document.getElementById('notify-error');
+        setTimeout(() => {
+            notify.className += ' rm';
+            setTimeout(() => notify.remove(), 200);
+        }, 10000);
+    </script>
+<% } %>
 
-<p>Ещё нет аккаунта? <a href="/sign-up">Зарегистрируйся</a>!</p>
+<div class="wrapper content-center grid">
+    <div class="login-box">
+        <header class="box-header"><h1>Авторизация</h1></header>
+        <form action="/sign-in" method="post">
+            <div class="form-row"><input type="text" name="username" id="username" placeholder="Имя пользователя"></div>
+            <div class="form-row"><input type="password" name="password" id="password" placeholder="Пароль"></div>
+            <div class="form-row"><input type="submit" value="Войти"><a href="/sign-up" class="to-right signup-link">Зарегистрируйся</a></div>
+        </form>
+    </div>
+</div>
 
 <%- include('parts/footer') %>

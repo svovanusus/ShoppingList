@@ -1,7 +1,6 @@
 module.exports = (req, res) => {
     if (req.user) return res.redirect('/');
 
-    var err = req.query.error ? req.query.error : null;
-    var data = {title: "Авторизация", err: err};
-    res.render('sign-in', data);
+    var msg = (req.query.prev == 'reg-success') ? 'Вы успешно зарегистрированы! Теперь Вы можете авторизиваться.' : null;
+    res.render('sign-in', {title: "Авторизация", user: req.user, message: msg});
 }

@@ -1,0 +1,164 @@
+* {
+    border: none;
+    outline: none;
+
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6, p, a {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #9a0b3a;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #890029;
+}
+
+.to-right {
+    float: right;
+}
+
+.grid {
+    display: grid;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #eaeaea;
+
+    font-family: 'Open Sans', sans-serif;
+    color: #333333;
+}
+
+#notify-info, #notify-error {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    padding: 15px;
+    border-radius: 10px;
+
+    transition: right ease-in-out .2s;
+}
+
+#notify-info {
+    background: #5bef2a6f;
+}
+
+#notify-error {
+    background: #ef5b2a6f;
+}
+
+#notify-info.rm, #notify-error.rm {
+    right: -100%;
+}
+
+header.page-header {
+    height: 50px;
+    background: #9a0b3a;
+
+    box-shadow: 0 2px 5px -1px #333333;
+}
+
+header.page-header > .container {
+    grid-template-columns: max-content 1fr max-content;
+}
+
+header.page-header .branding {
+    display: block;
+    padding: 0 15px;
+    font: 23px 'Lobster', cursive;
+    line-height: 50px;
+    text-decoration: none;
+    color: #ffffff;
+    background: #890029;
+}
+
+header.page-header .logout {
+    align-items: center;
+}
+
+.main-navigation > ul.menu {
+    grid-template-columns: repeat(3, max-content);
+    padding: 0;
+    margin: 0 0 0 10px;
+    list-style-type: none;
+}
+
+.main-navigation > ul.menu a {
+    display: block;
+    padding: 0 15px;
+    font-size: 20px;
+    line-height: 50px;
+    text-decoration: none;
+    color: #ffffff;
+
+    transition: background ease-in-out .2s;
+}
+
+.main-navigation > ul.menu a:hover {
+    background: #890029;
+}
+
+.page-content {
+    margin-top: 20px;
+}
+
+.wrapper.content-center {
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 70px);
+}
+
+header.box-header {
+    margin: -15px -15px 15px -15px;
+    background: #9a0b3a;
+}
+
+header.box-header > h1 {
+    font: 23px 'Russo One', sans-serif;
+    line-height: 45px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.login-box, .registration-box {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 1px 5px -1px #333333;
+}
+
+.login-box .signup-link {
+    line-height: 34px;
+    text-decoration: none;
+    color: #9a0b3a;
+    margin-left: 20px;
+}
+
+.registration-box .signin-link {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.form-row:not(:last-child) {
+    margin-bottom: 10px;
+}

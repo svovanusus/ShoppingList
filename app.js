@@ -62,6 +62,7 @@ app.all('/sign-out', require('./app/routes/sign-out'));
 
 
 // Error handling 404
+// eslint-disable-next-line no-unused-vars
 app.use(function(req, res, next){
     res.status(404);
     res.render('404');
@@ -69,6 +70,7 @@ app.use(function(req, res, next){
 
 // Error handling 500
 /*
+// eslint-disable-next-line no-unused-vars
 app.use(function(err, req, res, next){
     res.status(err.status || 500);
     res.render('500', { error: err });

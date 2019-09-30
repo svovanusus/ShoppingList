@@ -1,6 +1,5 @@
 module.exports = (req, res) => {
     if (req.user) return res.redirect('/');
 
-    var data = {title: "Регистрация"};
-    res.render('sign-up', data);
+    res.render('sign-up', {title: 'Регистрация', user: req.user});
 }

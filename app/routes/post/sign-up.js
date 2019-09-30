@@ -12,7 +12,7 @@ module.exports = (req, res) => {
             })
             .then(user => {
                 if (user != null) {
-                    res.render('index', {title: "Регистрация", name: null, text: "Пользователь с таким именем уже существует!"});
+                    res.render('sign-up', {title: "Регистрация", user: req.user, error: "Пользователь с таким именем уже существует!"});
                     return;
                 }
                 userModel
@@ -21,16 +21,16 @@ module.exports = (req, res) => {
                         password: body.password
                     })
                     .then(() => {
-                        res.render('index', {title: "Регистрация", name: null, text: "Вы успешно зарегистрированы!"});
+                        res.redirect('/sign-in?prev=reg-success');
                     })
                     .catch(err => {
-                        res.render('index', {title: "Регистрация", name: null, text: "В процессе обработки данных возникла ошибка!<br>" + err});
+                        res.render('sign-up', {title: "Регистрация", user: req.user, error: "В процессе обработки данных возникла ошибка!<br>" + err});
                     });
             })
             .catch(err => {
-                res.render('index', {title: "Регистрация", name: null, text: "Возникла неизвестная ошибка! Посторите позже.<br>" + err});
+                res.render('sign-up', {title: "Регистрация", user: req.user, error: "Возникла неизвестная ошибка! Посторите позже.<br>" + err});
             });
     } else {
-        res.render('index', {title: "Регистрация", name: null, text: "Пароли не совпадают!"});
+        res.render('sign-up', {title: "Регистрация", user: req.user, error: "Введённые пароли не совпадают!"});
     }
 }
