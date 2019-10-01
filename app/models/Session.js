@@ -22,6 +22,4 @@ Session.init({
     }]
 });
 
-Session.sync();
-
 module.exports = Session;

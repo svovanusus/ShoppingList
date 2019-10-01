@@ -10,6 +10,7 @@ const passport = require('passport');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const passportConfig = require('./app/passportConfig');
+//const Sequelize = require('sequelize');
 const connection = require('./app/database');
 
 
@@ -17,10 +18,12 @@ const connection = require('./app/database');
 
 require('./app/models/User');
 require('./app/models/Group');
-require('./app/models/UserGroup');
+//require('./app/models/UserGroup');
 require('./app/models/List');
 require('./app/models/ListItem');
 require('./app/models/Session');
+
+connection.sync();
 
 
 /*===== CONFIGURATIONS =====*/
@@ -60,6 +63,7 @@ app.post('/sign-in', require('./app/routes/post/sign-in'));
 
 app.all('/sign-out', require('./app/routes/sign-out'));
 
+app.get('/groups', require('./app/routes/get/groups'));
 
 // Error handling 404
 // eslint-disable-next-line no-unused-vars

@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const connection = require('../database');
+const List = require('./List');
+const Invite = require('./Invite');
 
 class Group extends Sequelize.Model {}
 Group.init({
@@ -25,6 +27,10 @@ Group.init({
     tableName: 'groups'
 });
 
-Group.sync();
+Group.hasMany(List, {foreignKey: 'group_link', sourceKey: 'id'});
+List.belongsTo(Group, {foreignKey: 'group_link', targetKey: 'id'});
+
+Group.hasMany(Invite, {foreignKey: 'groupId', sourceKey: 'id'});
+Invite.belongsTo(Group, {foreignKey: 'groupId', targetKey: 'id'});
 
 module.exports = Group;

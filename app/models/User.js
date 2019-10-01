@@ -1,5 +1,8 @@
 const Sequelize = require('sequelize');
 const connection = require('../database');
+const Group = require('./Group');
+const List = require('./List');
+const Invite = require('./Invite');
 
 class User extends Sequelize.Model {}
 User.init({
@@ -26,6 +29,18 @@ User.init({
     tableName: 'users'
 });
 
-User.sync();
+User.hasMany(Group, {foreignKey: 'owner', sourceKey: 'id'});
+Group.belongsTo(User, {foreignKey: 'owner', targetKey: 'id'});
+
+User.hasMany(List, {foreignKey: 'owner', sourceKey: 'id'});
+List.belongsTo(User, {foreignKey: 'owner', targetKey: 'id'});
+
+User.hasMany(Invite, {foreignKey: 'inviter', sourceKey: 'id'});
+Invite.belongsTo(User, {foreignKey: 'inviter', targetKey: 'id'});
+
+User.hasMany(Invite, {foreignKey: 'invited', sourceKey: 'id'});
+Invite.belongsTo(User, {foreignKey: 'invited', targetKey: 'id'});
+
+User.belongsToMany(Group, {through: 'user_group'});
 
 module.exports = User;

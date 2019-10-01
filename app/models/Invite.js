@@ -1,9 +1,8 @@
 const Sequelize = require('sequelize');
 const connection = require('../database');
-const ListItem = require('./ListItem');
 
-class List extends Sequelize.Model {}
-List.init({
+class Invite extends Sequelize.Model {}
+Invite.init({
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -11,27 +10,24 @@ List.init({
         allowNull: false
     },
 
-    title: {
-        type: Sequelize.STRING(256),
-        allowNull: false
-    },
-    
-    owner: {
+    inviter: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
 
-    groupLink: {
+    invited: {
         type: Sequelize.INTEGER,
-        allowNull: true
+        allowNull: false
+    },
+
+    groupId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
     }
 }, {
     sequelize: connection,
-    modelName: 'list',
-    tableName: 'lists'
+    modelName: 'invite',
+    tableName: 'invites'
 });
 
-List.hasMany(ListItem);
-ListItem.belongsTo(List);
-
-module.exports = List;
+module.exports = Invite;

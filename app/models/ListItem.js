@@ -14,11 +14,6 @@ ListItem.init({
         type: Sequelize.STRING(256),
         allowNull: false
     },
-    
-    listId: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
 
     isDone: {
         type: Sequelize.BOOLEAN,
@@ -30,7 +25,5 @@ ListItem.init({
     modelName: 'list-item',
     tableName: 'list_items'
 });
-
-ListItem.sync();
 
 module.exports = ListItem;
