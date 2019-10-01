@@ -145,6 +145,7 @@ header.box-header > h1 {
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 1px 5px -1px #333333;
+    margin-top: -70px;
 }
 
 .login-box .signup-link {
@@ -188,4 +189,54 @@ section.page-section .add-form > form {
 
 a.group-link.grid {
     grid-template-columns: 1fr max-content max-content;
+}
+
+.slist-container {
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px;
+    align-items: flex-start;
+}
+
+.slist-container > .slist {
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px -1px #333333;
+}
+
+.slist-container > .slist > header.slist-header {
+    background: #9a0b3a;
+}
+
+.slist-container > .slist > header.slist-header > h3 {
+    text-align: center;
+    font: 18px 'Russo One', sans-serif;
+    line-height: 38px;
+    color: #ffffff;
+}
+
+.slist-container > .slist .slist-item {
+    padding: 5px 10px;
+    font-size: 15px;
+    line-height: 30px;
+    border-bottom: 1px solid #eaeaea;
+    color: #333333;
+    font-weight: bold;
+}
+
+.slist-container > .slist > footer.slist-footer > a.slist-add-items-button {
+    display: block;
+    text-align: center;
+    font: 15px 'Russo One', sans-serif;
+    line-height: 30px;
+    background: #eaeaea;
+    color: #333333;
+
+    transition: background ease-in-out .2s;
+}
+
+.slist-container > .slist > footer.slist-footer > a.slist-add-items-button:hover {
+    text-decoration: none;
+    background: #cecece;
+    color: #333333;
 }

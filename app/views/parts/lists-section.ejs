@@ -1,0 +1,45 @@
+<section class="page-section">
+    <header class="section-header grid">
+        <h1><%= sectionTitle -%></h1>
+        <a href="#" class="button button-dark" onclick="formToggle(this);">Создать список</a>
+    </header>
+    <div class="section-content">
+        <div class="add-form" style="display: none;">
+            <form action="/lists/create" method="post" class="grid">
+                <input type="text" name="title" id="title" class="full-width" placeholder="Название списка">
+                <input type="submit" value="Создать">
+            </form>
+        </div>
+
+        <% if (lists && lists.length > 0) { %>
+            <div class="slist-container grid">
+                <% lists.forEach(list => { %>
+                    <div class="slist">
+                        <header class="slist-header">
+                            <h3><%= list.title -%></h3>
+                        </header>
+                        <div class="items">
+                            <% list.Items.forEach(item => { %>
+                                <div class="slist-item"><%= item.title -%></div>
+                            <% }) %>
+                        </div>
+                        <footer class="slist-footer">
+                            <a href="#" class="slist-add-items-button">Добавить элемент</a>
+                        </footer>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <p>У вас пока нет списков</p>
+        <% } %>
+    </div>
+    <script>
+        function formToggle (el) {
+            $('.add-form').toggle();
+            if ($(el).text() == 'Создать список') $(el).text('Отмена');
+            else $(el).text('Создать список');
+        }
+    </script>
+    <script src="/js/add-form.js"></script>
+    <script src="/js/slists.js"></script>
+</section>
