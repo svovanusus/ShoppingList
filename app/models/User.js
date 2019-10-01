@@ -29,18 +29,19 @@ User.init({
     tableName: 'users'
 });
 
-User.hasMany(Group, {foreignKey: 'owner', sourceKey: 'id'});
-Group.belongsTo(User, {foreignKey: 'owner', targetKey: 'id'});
+User.hasMany(Group, {as: 'GroupOwnership', foreignKey: 'owner', sourceKey: 'id'});
+Group.belongsTo(User, {as: 'Owner', foreignKey: 'owner', targetKey: 'id'});
 
-User.hasMany(List, {foreignKey: 'owner', sourceKey: 'id'});
-List.belongsTo(User, {foreignKey: 'owner', targetKey: 'id'});
+User.hasMany(List, {as: 'ListOwnership', foreignKey: 'owner', sourceKey: 'id'});
+List.belongsTo(User, {as: 'Owner', foreignKey: 'owner', targetKey: 'id'});
 
-User.hasMany(Invite, {foreignKey: 'inviter', sourceKey: 'id'});
-Invite.belongsTo(User, {foreignKey: 'inviter', targetKey: 'id'});
+User.hasMany(Invite, {as: 'Invitings', foreignKey: 'inviter', sourceKey: 'id'});
+Invite.belongsTo(User, {as: 'Inviter', foreignKey: 'inviter', targetKey: 'id'});
 
-User.hasMany(Invite, {foreignKey: 'invited', sourceKey: 'id'});
-Invite.belongsTo(User, {foreignKey: 'invited', targetKey: 'id'});
+User.hasMany(Invite, {as: 'Invitations', foreignKey: 'invited', sourceKey: 'id'});
+Invite.belongsTo(User, {as: 'Invited', foreignKey: 'invited', targetKey: 'id'});
 
-User.belongsToMany(Group, {through: 'user_group'});
+User.belongsToMany(Group, {as: 'Groups', through: 'user_group'});
+Group.belongsToMany(User, {as: 'Users', through: 'user_group'});
 
 module.exports = User;

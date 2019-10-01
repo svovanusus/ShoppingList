@@ -64,6 +64,11 @@ app.post('/sign-in', require('./app/routes/post/sign-in'));
 app.all('/sign-out', require('./app/routes/sign-out'));
 
 app.get('/groups', require('./app/routes/get/groups'));
+app.get('/groups/:groupId', require('./app/routes/get/group'));
+
+app.post('/groups/invite', require('./app/routes/post/invites'));
+app.post('/groups/invites/create', require('./app/routes/post/createInvite'));
+app.post('/groups/create', require('./app/routes/post/createGroup'));
 
 // Error handling 404
 // eslint-disable-next-line no-unused-vars

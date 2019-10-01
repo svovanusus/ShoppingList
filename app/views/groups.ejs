@@ -1,5 +1,58 @@
 <%- include('parts/header') %>
 
-<h1>GROUPS</h1>
+<% if (invites && invites.length > 0) { %>
+<section class="page-section">
+    <header class="section-header">
+        <h1>Приглашения</h1>
+    </header>
+    <div class="section-content">
+        <% invites.forEach(invite => { %>
+            <div class="invite">
+                <p>Пользователь <i><%= invite.Inviter.username -%></i> приглашает Вас в группу <b><%= invite.group.title -%></b></p>
+                <a href="#" class="button invite-button" invite-id="<%= invite.id -%>" invite-action="apply">Принять</a>
+                <a href="#" class="button invite-button" invite-id="<%= invite.id -%>" invite-action="cancel">Отклонить</a>
+            </div>
+        <% }) %>
+    </div>
+</section>
+
+<script src="/js/invites.js"></script>
+<% } %>
+
+<section class="page-section">
+    <header class="section-header grid">
+        <h1>Мои группы</h1>
+        <a href="#" class="button button-dark" onclick="formToggle(this);">Создать группу</a>
+    </header>
+    <div class="section-content">
+        <div class="add-form" style="display: none;">
+            <form action="/groups/create" method="post" class="grid">
+                <input type="text" name="title" id="title" class="full-width" placeholder="Название группы">
+                <input type="submit" value="Создать">
+            </form>
+        </div>
+        <% if (groups && groups.length > 0) { %>
+            <% groups.forEach(group => { %>
+                <div class="group grid">
+                    <a href="/groups/<%= group.id -%>" class="group-link grid">
+                        <p class="title"><%= group.title -%></p>
+                        <p class="members-conut"><%= group.Users.length -%></p>
+                        <p class="lists-count"><%= group.Lists.length -%></p>
+                    </a>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>Вы не состоите ни в одной группе!</p>
+        <% } %>
+    </div>
+    <script>
+        function formToggle (el) {
+            $('.add-form').toggle();
+            if ($(el).text() == 'Создать группу') $(el).text('Отмена');
+            else $(el).text('Создать группу');
+        }
+    </script>
+    <script src="/js/add-form.js"></script>
+</section>
 
 <%- include('parts/footer') %>

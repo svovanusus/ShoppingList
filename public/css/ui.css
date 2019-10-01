@@ -6,6 +6,7 @@ a.button, input[type="button"], input[type="submit"], button {
     line-height: 34px;
     padding: 0 20px;
     text-decoration: none;
+    cursor: pointer;
 
     background: #9a0b3a;
     color: #ffffff;
@@ -15,6 +16,8 @@ a.button, input[type="button"], input[type="submit"], button {
 
 a.button:hover, input[type="button"]:hover, input[type="submit"]:hover, button:hover {
     background: #890029;
+    color: #ffffff;
+    text-decoration: none;
 }
 
 a.button.button-dark, input[type="button"].button-dark, input[type="submit"].button-dark, button.button-dark {

@@ -162,3 +162,30 @@ header.box-header > h1 {
 .form-row:not(:last-child) {
     margin-bottom: 10px;
 }
+
+section.page-section > header.section-header {
+    grid-template-columns: 1fr max-content;
+    margin-bottom: 15px;
+}
+
+section.page-section > header.section-header > h1 {
+    line-height: 34px;
+}
+
+section.page-section .add-form {
+    padding: 10px;
+    border-radius: 10px;
+    background: #ffffff;
+    overflow: hidden;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px -1px #333333;
+}
+
+section.page-section .add-form > form {
+    grid-template-columns: 1fr max-content;
+    grid-gap: 10px;
+}
+
+a.group-link.grid {
+    grid-template-columns: 1fr max-content max-content;
+}

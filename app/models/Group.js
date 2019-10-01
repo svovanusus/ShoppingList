@@ -27,7 +27,7 @@ Group.init({
     tableName: 'groups'
 });
 
-Group.hasMany(List, {foreignKey: 'group_link', sourceKey: 'id'});
+Group.hasMany(List, {as: 'Lists', foreignKey: 'group_link', sourceKey: 'id'});
 List.belongsTo(Group, {foreignKey: 'group_link', targetKey: 'id'});
 
 Group.hasMany(Invite, {foreignKey: 'groupId', sourceKey: 'id'});

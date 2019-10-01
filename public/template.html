@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Open+Sans|Russo+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/ui.css">
     <link rel="stylesheet" href="/css/style.css">
     <title>Template</title>
+    <script src="/js/jquery-3.4.1.min.js"></script>
 </head>
 <body>
     <header class="page-header grid">
@@ -28,7 +30,42 @@
         <div class="container">
         <!-- HEADER END -->
 
-
+        <section class="page-section">
+            <header class="section-header grid">
+                <h1>Мои группы</h1>
+                <a href="#" class="button button-dark" onclick="formToggle(this);">Создать группу</a>
+            </header>
+            <div class="section-content">
+                <div class="add-form" style="display: none;">
+                    <form action="/groups/create" method="post" class="grid">
+                        <input type="text" name="title" id="title" class="full-width" placeholder="Название группы">
+                        <input type="submit" value="Создать">
+                    </form>
+                </div>
+                <div class="group grid">
+                    <a href="/groups/7" class="group-link grid">
+                        <p class="title">Первая группа</p>
+                        <p class="members-conut">2</p>
+                        <p class="lists-count">1</p>
+                    </a>
+                </div>
+                <div class="group grid">
+                    <a href="/groups/8" class="group-link grid">
+                        <p class="title">Вторая группа</p>
+                        <p class="members-conut">5</p>
+                        <p class="lists-count">2</p>
+                    </a>
+                </div>
+            </div>
+            <script>
+                function formToggle (el) {
+                    $('.add-form').toggle();
+                    if ($(el).text() == 'Создать группу') $(el).text('Отмена');
+                    else $(el).text('Создать группу');
+                }
+            </script>
+            <script src="/js/add-form.js"></script>
+        </section>
 
         <!-- FOOTER BEGIN -->
         </div>

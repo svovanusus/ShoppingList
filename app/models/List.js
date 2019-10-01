@@ -31,7 +31,7 @@ List.init({
     tableName: 'lists'
 });
 
-List.hasMany(ListItem);
+List.hasMany(ListItem, {as: 'Items'});
 ListItem.belongsTo(List);
 
 module.exports = List;

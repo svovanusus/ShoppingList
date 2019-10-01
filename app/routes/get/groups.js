@@ -1,7 +1,12 @@
-//var groupModel = require('../../models/Group');
+//var inviteModel = require('../../models/Invite');
+var groupModel = require('../../models/Group');
 
 module.exports = (req, res) => {
     if (!req.user) return res.redirect('/sign-in');
 
-    res.render('groups', {title: 'Список групп', user: req.user});
+    req.user.getInvitations({include: ['Inviter', groupModel], attributes: ['id']}).then(invites => {
+        req.user.getGroups({include: ['Users', 'Lists']}).then(groups => {
+            res.render('groups', {title: 'Список групп', user: req.user, invites, groups});
+        });
+    });
 }

@@ -1,0 +1,39 @@
+<%- include('parts/header') %>
+
+<h1>Группа: <%= group.title -%></h1>
+<p>Создатель: <%= group.Owner.username -%></p>
+
+<section class="page-section">
+    <header class="section-header grid">
+        <h1>Участники группы</h1>
+        <a href="#" class="button button-dark" onclick="formToggle(this);">Добавить участника</a>
+    </header>
+    <div class="section-content">
+        <div class="add-form" style="display: none;">
+            <form action="/groups/invites/create" method="post" class="grid">
+                <input type="text" name="username" id="username" class="full-width" placeholder="Имя пользователя">
+                <input type="hidden" name="groupId" value="<%= group.id -%>">
+                <input type="submit" value="Пригласить">
+            </form>
+        </div>
+        <% if (group.Users && group.Users.length > 0) { %>
+            <% group.Users.forEach(user => { %>
+                <div class="member grid">
+                    <p class="username"><%= user.username -%></p>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>В группе нет участников!</p>
+        <% } %>
+    </div>
+    <script>
+        function formToggle (el) {
+            $('.add-form').toggle();
+            if ($(el).text() == 'Добавить участника') $(el).text('Отмена');
+            else $(el).text('Добавить участника');
+        }
+    </script>
+    <script src="/js/add-form.js"></script>
+</section>
+
+<%- include('parts/footer') %>
