@@ -15,11 +15,18 @@ module.exports = (req, res) => {
         .then(user => {
             if (!user) return res.send(JSON.stringify({status: 'Fail', message: 'Пользователь с таким именем пользователя не существует!'}));
 
-            if (user.hasGroup(group)) return res.send(JSON.stringify({status: 'Fail', message: 'Данный пользователь уже состоит в этой группе!'}));
+            user.hasGroup(group)
+            .then(result => {
+                if (result) return res.send(JSON.stringify({status: 'Fail', message: 'Данный пользователь уже состоит в этой группе!'}));
 
-            inviteModel.findOrCreate({ where: {inviter: req.user.id, invited: user.id, groupId: group.id} })
-            .then(() => {
-                res.send(JSON.stringify({status: 'OK', message: 'Приглошение отправлено.'}));
+                inviteModel.findOrCreate({ where: {inviter: req.user.id, invited: user.id, groupId: group.id} })
+                .then(() => {
+                    res.send(JSON.stringify({status: 'OK', message: 'Приглошение отправлено.'}));
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.send(JSON.stringify({status: 'Fail', message: 'Произошла неизвестная ошибка!'}));
+                });
             })
             .catch(err => {
                 console.log(err);
