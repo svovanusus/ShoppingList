@@ -1,12 +1,15 @@
 var addButtons = $('a.slist-add-items-button');
 
-addButtons.click(function(e) {
+addButtons.click(addButtonClick);
+
+function addButtonClick(e) {
     e.preventDefault();
 
     var listContainer = $(this).parent('footer').parent('.slist').children('.items');
+    var listId = $(this).attr('slist');
 
     var newItem = $('<div/>', {
-        class: 'slist-item'
+        class: 'slist-item new'
     }).appendTo(listContainer);
 
     var newItemInput = $('<input/>', {
@@ -14,9 +17,11 @@ addButtons.click(function(e) {
         placeholder: 'Наименование',
         type: 'text',
         blur: function() {
-            if ($(this).val() && $(this).val() != '') {
-                var title = $(this).val();
-                //query
+            var title = $(this).val().trim();
+            if (title && title != '') {
+                
+                ws.send(JSON.stringify({act: 'AddListItem', data: {title, listId}}));
+
                 $(this).parent('.slist-item').text(title);
             } else {
                 $(this).parent('.slist-item').remove();
@@ -31,4 +36,4 @@ addButtons.click(function(e) {
     }).appendTo(newItem);
 
     newItemInput.focus();
-});
+};

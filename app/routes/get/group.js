@@ -7,7 +7,14 @@ module.exports = (req, res, next) => {
     .then(group => {
         if (!group) return res.status('404').render('404');
 
-        res.render('single-group', {title: group.title, user: req.user, group});
+        group.getLists({include: ['Items']})
+        .then(lists => {
+            res.render('single-group', {title: group.title, user: req.user, group, lists});
+        })
+        .catch(err => {
+            console.log(err);
+            next(err);    
+        });
     })
     .catch(err => {
         console.log(err);

@@ -6,10 +6,10 @@
 <section class="page-section">
     <header class="section-header grid">
         <h1>Участники группы</h1>
-        <a href="#" class="button button-dark" onclick="formToggle(this);">Добавить участника</a>
+        <a href="#" class="button button-dark" onclick="formToggleGroups(this);">Добавить участника</a>
     </header>
     <div class="section-content">
-        <div class="add-form" style="display: none;">
+        <div id="add-group" class="add-form" style="display: none;">
             <form action="/groups/invites/create" method="post" class="grid">
                 <input type="text" name="username" id="username" class="full-width" placeholder="Имя пользователя">
                 <input type="hidden" name="groupId" value="<%= group.id -%>">
@@ -27,13 +27,16 @@
         <% } %>
     </div>
     <script>
-        function formToggle (el) {
-            $('.add-form').toggle();
+        function formToggleGroups (el) {
+            $('.add-form#add-group').toggle();
             if ($(el).text() == 'Добавить участника') $(el).text('Отмена');
             else $(el).text('Добавить участника');
         }
     </script>
     <script src="/js/add-form.js"></script>
 </section>
+
+<script>var groupId=<%= group.id -%>;</script>
+<%- include('parts/lists-section', {groupId: group.id, sectionTitle: 'Списки группы'}) %>
 
 <%- include('parts/footer') %>

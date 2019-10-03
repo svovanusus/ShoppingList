@@ -19,11 +19,6 @@ List.init({
     owner: {
         type: Sequelize.INTEGER,
         allowNull: false
-    },
-
-    groupLink: {
-        type: Sequelize.INTEGER,
-        allowNull: true
     }
 }, {
     sequelize: connection,
