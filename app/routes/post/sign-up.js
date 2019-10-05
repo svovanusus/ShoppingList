@@ -1,7 +1,7 @@
 const userModel = require('../../models/User')
 
 module.exports = (req, res) => {
-    if (req.user) return res.redirect('/');
+    if (req.user) return res.send(JSON.stringify({redirect: '/'}));
 
     var body = req.body;
     if (body.password == body.password_confirm) {
@@ -11,26 +11,23 @@ module.exports = (req, res) => {
                 attributes: ['id']
             })
             .then(user => {
-                if (user != null) {
-                    res.render('sign-up', {title: "Регистрация", user: req.user, error: "Пользователь с таким именем уже существует!"});
-                    return;
-                }
+                if (user != null) return res.send(JSON.stringify({status: 'Fail', message: 'Пользователь с таким именем уже существует!'}));
                 userModel
                     .create({
                         username: body.username,
                         password: body.password
                     })
                     .then(() => {
-                        res.redirect('/sign-in?prev=reg-success');
+                        res.send(JSON.stringify({status: 'OK', message: 'Вы успешно зарегистрированы! Теперь вы мобете авторищоваться.', redirect: '/sign-in?prev=reg-success'}));
                     })
                     .catch(err => {
-                        res.render('sign-up', {title: "Регистрация", user: req.user, error: "В процессе обработки данных возникла ошибка!<br>" + err});
+                        res.send(JSON.stringify({status: 'Fail', message: 'В процессе обработки данных возникла ошибка!'}));
                     });
             })
             .catch(err => {
-                res.render('sign-up', {title: "Регистрация", user: req.user, error: "Возникла неизвестная ошибка! Посторите позже.<br>" + err});
+                res.send(JSON.stringify({status: 'Fail', message: 'Возникла неизвестная ошибка!'}));
             });
     } else {
-        res.render('sign-up', {title: "Регистрация", user: req.user, error: "Введённые пароли не совпадают!"});
+        res.send(JSON.stringify({status: 'Fail', message: 'Введённые пароли не совпадают!'}));
     }
 }

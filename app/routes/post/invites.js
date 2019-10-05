@@ -1,4 +1,6 @@
 var inviteModel = require('../../models/Invite');
+var userModel = require('../../models/User');
+var listModel = require('../../models/List');
 
 module.exports = (req, res) => {
     if (!req.user) res.send(JSON.stringify({status: 'Fail', message: 'Нет доступа!'}));
@@ -9,13 +11,14 @@ module.exports = (req, res) => {
             if (req.user.id != invite.invited) return res.send(JSON.stringify({status: 'Fail', message: 'Нет доступа!'}));
 
             if (req.body.action == 'apply') {
-                invite.getGroup()
+                invite.getGroup({include: [{model: userModel, as: 'Users', attributes: ['id']}, {model: listModel, as: 'Lists', attributes: ['id']}]})
                 .then(group => {
+                    console.log(JSON.stringify(group));
                     group.addUser(req.user)
                     .then(() => {
                         invite.destroy()
                         .then(() => {
-                            res.send(JSON.stringify({status: 'OK', message: 'Приглашение успешно принято.'}));
+                            res.send(JSON.stringify({status: 'OK', message: 'Приглашение успешно принято.', group}));
                         })
                         .catch(err => {
                             console.log(err);

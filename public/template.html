@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Lobster|Open+Sans|Russo+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/css/all.min.css">
     <link rel="stylesheet" href="/css/ui.css">
     <link rel="stylesheet" href="/css/style.css">
     <title>Template</title>
     <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/notify.js"></script>
 </head>
 <body>
     <header class="page-header grid">
@@ -30,38 +33,44 @@
         <div class="container">
         <!-- HEADER END -->
 
-        <section class="page-section">
+        <section class="page-section" id="slists">
             <header class="section-header grid">
-                <h1>Мои списки</h1>
-                <a href="#" class="button button-dark" onclick="formToggle(this);">Создать список</a>
+                <h1>Списки группы</h1>
+                <a href="#" class="button button-dark" onclick="formToggleLists(this);">Создать список</a>
             </header>
             <div class="section-content">
-                <div class="add-form" style="display: none;">
-                    <form action="/lists/create" method="post" class="grid">
-                        <input type="text" name="title" id="title" class="full-width" placeholder="Название списка">
-                        <input type="submit" value="Создать">
-                    </form>
-                </div>
                 <div class="slist-container grid">
-                    <div class="slist">
+                    <div id="61" class="slist">
                         <header class="slist-header">
-                            <h3>Первый</h3>
+                            <h3>Среда</h3>
+                            <a href="#" class="del-button"><i class="fas fa-trash-alt"></i></a>
                         </header>
-                        <div class="items"></div>
+                        <div class="items">
+                            <div id="70" class="slist-item">Чай<a href="#" class="del-button"><i class="fas fa-trash-alt"></i></a></div>
+                            <div id="71" class="slist-item">Кофе<a href="#" class="del-button"><i class="fas fa-trash-alt"></i></a></div>
+                            <div id="72" class="slist-item">Печеньки<a href="#" class="del-button"><i class="fas fa-trash-alt"></i></a></div>
+                            <div id="73" class="slist-item">Конфеты<a href="#" class="del-button"><i class="fas fa-trash-alt"></i></a></div>
+                        </div>
                         <footer class="slist-footer">
-                            <a href="#" class="slist-add-items-button">Добавить элемент</a>
+                            <a href="#" slist="61" class="slist-add-items-button"><i class="fas fa-plus"></i> Добавить</a>
+                        </footer>
+                    </div>
+                
+                    <div id="62" class="slist">
+                        <header class="slist-header">
+                            <h3>Четверг</h3>
+                        </header>
+                        <div class="items">
+                            <div id="74" class="slist-item">Сельдь<a href="#" class="del-button"><i class="fas fa-trash-alt"></i></a></div>
+                            <div id="75" class="slist-item">Скумбрия<a href="#" class="del-button"><i class="fas fa-trash-alt"></i></a></div>
+                            <div id="76" class="slist-item">Хлеб<a href="#" class="del-button"><i class="fas fa-trash-alt"></i></a></div>
+                        </div>
+                        <footer class="slist-footer">
+                            <a href="#" slist="62" class="slist-add-items-button"><i class="fas fa-plus"></i> Добавить</a>
                         </footer>
                     </div>
                 </div>
             </div>
-            <script>
-                function formToggle (el) {
-                    $('.add-form').toggle();
-                    if ($(el).text() == 'Создать список') $(el).text('Отмена');
-                    else $(el).text('Создать список');
-                }
-            </script>
-            <script src="/js/add-form.js"></script>
             <script src="/js/slists.js"></script>
         </section>
 

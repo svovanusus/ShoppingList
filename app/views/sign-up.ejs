@@ -9,7 +9,7 @@
         setTimeout(() => {
             notify.className += ' rm';
             setTimeout(() => notify.remove(), 200);
-        }, 10000);
+        }, 4000);
     </script>
 <% } %>
 <div class="wrapper content-center grid">
@@ -24,5 +24,6 @@
         <p class="signin-link">Уже зарегистрированы? Войти можно <a href="/sign-in">тут</a>!</p>
     </div>
 </div>
+<script src="/js/auth-forms.js"></script>
 
 <%- include('parts/footer') %>

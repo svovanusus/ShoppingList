@@ -20,14 +20,18 @@
                     <div id="<%= list.id -%>" class="slist">
                         <header class="slist-header">
                             <h3><%= list.title -%></h3>
+                            <a href="#" class="del-button"><i class="fas fa-trash-alt"></i></a>
                         </header>
                         <div class="items">
                             <% list.Items.forEach(item => { %>
-                                <div id="<%= item.id -%>" class="slist-item"><%= item.title -%></div>
+                                <div id="<%= item.id -%>" class="slist-item<% if (item.isDone) { %> done<% } %>">
+                                    <%= item.title -%>
+                                    <a href="#" class="del-button"><i class="fas fa-trash-alt"></i></a>
+                                </div>
                             <% }) %>
                         </div>
                         <footer class="slist-footer">
-                            <a href="#" slist="<%= list.id -%>" class="slist-add-items-button">Добавить элемент</a>
+                            <a href="#" slist="<%= list.id -%>" class="slist-add-items-button"><i class="fas fa-plus"></i> Добавить</a>
                         </footer>
                     </div>
                 <% }) %>

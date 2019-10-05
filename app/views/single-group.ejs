@@ -2,6 +2,45 @@
 
 <h1>Группа: <%= group.title -%></h1>
 <p>Создатель: <%= group.Owner.username -%></p>
+<% if (group.Owner.id == user.id) { %>
+    <a href="#" onclick="delGroupClick();">Удалить группу</a>
+    <script>
+        function delGroupClick() {
+            $.ajax({
+                url: '/groups/remove',
+                type: 'POST',
+                data: {groupId: <%= group.id -%>},
+                success: function(data) {
+                    data = JSON.parse(data);
+                    if (data.message) createNotify(data.status, data.message);
+                    if (data.redirect) window.location.replace(data.redirect);
+                },
+                error: function() {
+                    createNotify('Fail', "Возникла ошибка!");
+                }
+            });
+        }
+    </script>
+<% } else { %>
+    <a href="#" onclick="leaveGroupClick();">Покинуть группу</a>
+    <script>
+        function leaveGroupClick() {
+            $.ajax({
+                url: '/groups/leave',
+                type: 'POST',
+                data: {groupId: <%= group.id -%>},
+                success: function(data) {
+                    data = JSON.parse(data);
+                    if (data.message) createNotify(data.status, data.message);
+                    if (data.redirect) window.location.replace(data.redirect);
+                },
+                error: function() {
+                    createNotify('Fail', "Возникла ошибка!");
+                }
+            });
+        }
+    </script>
+<% } %>
 
 <section class="page-section">
     <header class="section-header grid">
@@ -17,9 +56,9 @@
             </form>
         </div>
         <% if (group.Users && group.Users.length > 0) { %>
-            <% group.Users.forEach(user => { %>
-                <div class="member grid">
-                    <p class="username"><%= user.username -%></p>
+            <% group.Users.forEach(_user => { %>
+                <div class="member<% if (group.Owner.id == _user.id) { %> owner<% } %><% if (_user.id == user.id) { %> me<% } %>">
+                    <p class="username"><%= _user.username -%></p>
                 </div>
             <% }) %>
         <% } else { %>
@@ -33,7 +72,6 @@
             else $(el).text('Добавить участника');
         }
     </script>
-    <script src="/js/add-form.js"></script>
 </section>
 
 <script>var groupId=<%= group.id -%>;</script>

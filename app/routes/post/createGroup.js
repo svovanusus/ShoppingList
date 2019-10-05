@@ -3,7 +3,7 @@ const groupModel = require('../../models/Group');
 module.exports = (req, res) => {
     if (!req.user) return res.send(JSON.stringify({status: 'Fail', message: 'Нет доступа!'}));
 
-    if (!req.body.title || req.body.title == '') return res.send(JSON.send({status: 'Fail', message: 'Название группы не может быть пустым!'}));
+    if (!req.body.title || req.body.title == '') return res.send(JSON.stringify({status: 'Fail', message: 'Название группы не может быть пустым!'}));
 
     groupModel
         .create({title: req.body.title, owner: req.user.id})

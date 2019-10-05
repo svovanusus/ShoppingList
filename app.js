@@ -68,6 +68,8 @@ app.get('/groups/:groupId', require('./app/routes/get/group'));
 app.post('/groups/invite', require('./app/routes/post/invites'));
 app.post('/groups/invites/create', require('./app/routes/post/createInvite'));
 app.post('/groups/create', require('./app/routes/post/createGroup'));
+app.post('/groups/leave', require('./app/routes/post/leaveGroup'));
+app.post('/groups/remove', require('./app/routes/post/removeGroup'));
 
 app.get('/lists', require('./app/routes/get/lists'));
 

@@ -4,7 +4,9 @@ var slistContainer = $('.slist-container');
 
 ws.onmessage = function(msg) {
     var data = JSON.parse(msg.data);
-    if (data.act == 'AddList') {
+    if (data.act == 'Notify') {
+        createNotify(data.status, data.message);
+    } else if (data.act == 'AddList') {
         if (slistContainer.length == 0) {
             slistContainer = $('<div/>', {
                 class: 'slist-container grid'
@@ -21,8 +23,15 @@ ws.onmessage = function(msg) {
             class: 'slist-header'
         }).appendTo(newSlist);
 
-        var h3 = $('<h3/>').appendTo(slistHeader);
-        h3.text(data.data.title);
+        $('<h3/>').text(data.data.title).appendTo(slistHeader);
+
+        var delButton = $('<a/>', {
+            class: 'del-button'
+        }).click(listDelClick).appendTo(slistHeader);
+
+        $('<i/>', {
+            class: 'fas fa-trash-alt'
+        }).appendTo(delButton);
 
         $('<div/>', {
             class: 'items'
@@ -38,7 +47,7 @@ ws.onmessage = function(msg) {
             slist: data.data.id
         }).appendTo(slistFooter);
 
-        addButton.text('Добавить элемент');
+        addButton.html('<i class="fas fa-plus"></i> Добавить');
         addButton.click(addButtonClick);
     } else if (data.act == 'AddListItem') {
         var newListItems = $('.slist#' + data.data.listId + ' .slist-item.new');
@@ -50,17 +59,36 @@ ws.onmessage = function(msg) {
                 }
             });
         } else {
-            $('<div/>', {
+            var newItem = $('<div/>', {
                 class: 'slist-item',
                 id: data.data.item.id
-            }).text(data.data.item.title).appendTo('.slist#' + data.data.listId + ' .items');
+            }).text(data.data.item.title).click(listItemClick).appendTo('.slist#' + data.data.listId + ' .items');
+
+            var itemLink = $('<a/>', {
+                class: 'del-button'
+            }).click(listItemDelClick).appendTo(newItem);
+
+            $('<i/>', {
+                class: 'fas fa-trash-alt'
+            }).appendTo(itemLink);
         }
 
+    } else if (data.act == 'ChangeStateListItem') {
+        var item = $('.slist-item#' + data.data.itemId);
+        if (data.data.isDone) {
+            if (!item.hasClass('done')) item.addClass('done');
+        } else {
+            if (item.hasClass('done')) item.removeClass('done');
+        }
+    } else if (data.act == 'DeleteListItem') {
+        $('.slist-item#' + data.data.itemId).remove();
+    } else if (data.act == 'DeleteList') {
+        $('.slist').remove('#' + data.data.listId);
     } else {
-        alert(msg.data);
+        createNotify('info', msg.data);
     }
 }
 
 ws.onclose = function(e) {
-    alert('Соединение потеряно!');
+    createNotify('Fail', 'Соединение потеряно!');
 }
