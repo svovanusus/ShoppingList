@@ -40,6 +40,7 @@ a:hover {
 }
 
 body {
+    min-width: 660px;
     margin: 0;
     padding: 0;
     background: #eaeaea;
@@ -200,13 +201,16 @@ a.group-link.grid {
 }
 
 .slist-container {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     grid-gap: 15px;
     align-items: flex-start;
     padding-bottom: 15px;
 }
 
 .slist-container > .slist {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 320px;
     background: #ffffff;
     border-radius: 10px;
     overflow: hidden;
@@ -377,4 +381,15 @@ a.group-link.grid:hover {
 .member.owner {
     background: #9a0b3a;
     color: #ffffff;
+}
+
+.change-password-form {
+    padding: 10px;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 2px 5px -1px #333333;
+}
+
+.change-password-form form input:not(:first-child) {
+    margin-top: 15px;
 }

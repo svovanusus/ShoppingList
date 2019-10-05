@@ -1,11 +1,19 @@
 <%- include('parts/header') %>
 
-<% if (user) { %>
-<h3>Привет, <%= user.username -%>!</h3>
-<% } %>
+<%- include('parts/invites-section') %>
 
-<p><a href="/template.html">Страница шаблона</a></p>
-
-<p><%= text -%></p>
+<section class="page-section">
+    <header class="section-header">
+        <h1>Основная информация</h1>
+    </header>
+    <div class="section-content">
+        <p>Для перехода к различным спискам воспользуйтесь навигацией сверху или кнопками ниже:</p>
+        <div class="buttons">
+            <br>
+            <a href="/groups" class="button">Список моих групп</a>
+            <a href="/lists" class="button">Список личных списков</a>
+        </div>
+    </div>
+</section>
 
 <%- include('parts/footer') %>

@@ -1,0 +1,20 @@
+<section class="page-section">
+    <header class="section-header">
+        <h1>Приглашения</h1>
+    </header>
+    <div class="section-content">
+        <% if (invites && invites.lenght > 0) { %>
+            <% invites.forEach(invite => { %>
+                <div class="invite">
+                    <p>Пользователь <b><%= invite.Inviter.username -%></b> приглашает Вас в группу <b><%= invite.group.title -%></b></p>
+                    <a href="#" class="button invite-button" invite-id="<%= invite.id -%>" invite-action="apply">Принять</a>
+                    <a href="#" class="button invite-button" invite-id="<%= invite.id -%>" invite-action="cancel">Отклонить</a>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>У Вас пока нет активных приглашений.</p>
+        <% } %>
+    </div>
+</section>
+
+<script src="/js/invites.js"></script>

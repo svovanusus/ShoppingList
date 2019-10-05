@@ -33,11 +33,11 @@ invite_buttons.click(function(e) {
 
                     $('<p/>', {
                         class: 'members-conut'
-                    }).text(data.group.Users.length + 1).appendTo(groupLink);
+                    }).html('<i class="fas fa-user"></i> ' + (data.group.Users.length + 1)).appendTo(groupLink);
 
                     $('<p/>', {
                         class: 'lists-count'
-                    }).text(data.group.Lists.length + 1).appendTo(groupLink);
+                    }).html('<i class="fas fa-clipboard-list"></i> ' + (data.group.Lists.length + 1)).appendTo(groupLink);
                 }
 
                 var invite = _this.parent('.invite');

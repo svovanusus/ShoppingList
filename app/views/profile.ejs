@@ -1,0 +1,42 @@
+<%- include('parts/header') %>
+
+<% if (user) { %>
+<h1>Мой профиль</h1>
+<p>Привет, <%= user.username -%>!</p>
+<% } %>
+
+<section class="page-section">
+    <header class="section-header">
+        <h1>Смена пароля</h1>
+    </header>
+    <div class="section-content">
+        <div class="change-password-form">
+            <form action="/profile/change-password" method="POST">
+                <input type="password" name="oldPassword" id="oldPassword" value="" placeholder="Старый пароль">
+                <input type="password" name="newPassword" id="newPassword" value="" placeholder="Новый пароль">
+                <input type="password" name="newPasswordConfirm" id="newPasswordConfirm" value="" placeholder="Подтверждение пароля">
+                <input type="submit" value="Применить">
+            </form>
+        </div>
+        <script>
+            $('.change-password-form form').submit(function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: $(this).attr('method'),
+                    data: $(this).serialize(),
+                    success: function(data) {
+                        data = JSON.parse(data);
+                        createNotify(data.status, data.message);
+                    },
+                    error: function() {
+                        createNotify('Fail', 'Возникла ошибка!');
+                    }
+                });
+            });
+        </script>
+    </div>
+</section>
+
+<%- include('parts/footer') %>

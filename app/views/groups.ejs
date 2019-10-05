@@ -1,22 +1,7 @@
 <%- include('parts/header') %>
 
 <% if (invites && invites.length > 0) { %>
-<section class="page-section">
-    <header class="section-header">
-        <h1>Приглашения</h1>
-    </header>
-    <div class="section-content">
-        <% invites.forEach(invite => { %>
-            <div class="invite">
-                <p>Пользователь <i><%= invite.Inviter.username -%></i> приглашает Вас в группу <b><%= invite.group.title -%></b></p>
-                <a href="#" class="button invite-button" invite-id="<%= invite.id -%>" invite-action="apply">Принять</a>
-                <a href="#" class="button invite-button" invite-id="<%= invite.id -%>" invite-action="cancel">Отклонить</a>
-            </div>
-        <% }) %>
-    </div>
-</section>
-
-<script src="/js/invites.js"></script>
+<%- include('parts/invites-section') %>
 <% } %>
 
 <section class="page-section">
@@ -37,8 +22,8 @@
                 <div class="group grid">
                     <a href="/groups/<%= group.id -%>" class="group-link grid">
                         <p class="title"><%= group.title -%></p>
-                        <p class="members-conut"><%= group.Users.length -%></p>
-                        <p class="lists-count"><%= group.Lists.length -%></p>
+                        <p class="members-conut"><i class="fas fa-user"></i> <%= group.Users.length -%></p>
+                        <p class="lists-count"><i class="fas fa-clipboard-list"></i> <%= group.Lists.length -%></p>
                     </a>
                 </div>
             <% }) %>

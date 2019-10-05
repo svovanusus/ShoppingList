@@ -1,4 +1,3 @@
-//var inviteModel = require('../../models/Invite');
 var groupModel = require('../../models/Group');
 
 module.exports = (req, res) => {

@@ -54,6 +54,9 @@ app.use(express.static('./public/'));
 
 app.get('/', require('./app/routes/get/index'));
 
+app.get('/profile', require('./app/routes/get/profile'));
+app.post('/profile/change-password', require('./app/routes/post/changePassword'));
+
 app.get('/sign-up', require('./app/routes/get/sign-up'));
 app.post('/sign-up', require('./app/routes/post/sign-up'));
 

@@ -16,6 +16,6 @@ module.exports = (req, res) => {
             ]
         })
         .then(lists => {
-            res.render('lists', {title: 'Списки', user: req.user, lists});
+            res.render('lists', {title: 'Личные списки', user: req.user, lists});
         });
 }
