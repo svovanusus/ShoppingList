@@ -19,5 +19,5 @@ form.submit(function (e) {
             createNotify('Fail', "Возникла ошибка!");
         }
     });
-    $(this).children('input:not(input[type="submit"])').val('');
+    $(this).children('input[type="text"]').val('');
 });

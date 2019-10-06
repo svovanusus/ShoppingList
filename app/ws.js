@@ -71,7 +71,11 @@ module.exports.init = app => {
                     .findByPk(data.data.listId)
                     .then(list => {
                         if (!list) return ws.send(JSON.stringify({act: 'Notify', status: 'Fail', message: 'Запрашиваемый список не найден!'}));
-                        if (!list.link_group == req.params.groupId) return ws.send(JSON.stringify({act: 'Notify', status: 'Fail', message: 'Запрашиваемый список не принадлежит текущей группе!'}));
+                        if (req.params.groupId && req.params.groupId != 0) {
+                            if (list.group_link != req.params.groupId) return ws.send(JSON.stringify({act: 'Notify', status: 'Fail', message: 'Запрашиваемый список не принадлежит текущей группе!'}));
+                        } else {
+                            if (list.owner != req.user.id) return ws.send(JSON.stringify({act: 'Notify', status: 'Fail', message: 'У Вас нет прав редактировать запрашиваемый список!'}));
+                        }
 
                         listItemModel.create({title: data.data.title, listId: list.id})
                         .then(item => {
