@@ -69,5 +69,5 @@ $('.slist header.slist-header a.del-button').click(listDelClick);
 function listDelClick(e) {
     e.preventDefault();
 
-    ws.send(JSON.stringify({act: 'DeleteList', data: {listId: $(this).parent('header').parent('.slist').attr('id')}}));
+    openDialog('Удаление списка', 'Вы действительно хотите удалить этот список?', () => ws.send(JSON.stringify({act: 'DeleteList', data: {listId: $(this).parent('header').parent('.slist').attr('id')}})));
 }

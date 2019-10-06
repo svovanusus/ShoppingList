@@ -6,18 +6,20 @@
     <a href="#" onclick="delGroupClick();">Удалить группу</a>
     <script>
         function delGroupClick() {
-            $.ajax({
-                url: '/groups/remove',
-                type: 'POST',
-                data: {groupId: <%= group.id -%>},
-                success: function(data) {
-                    data = JSON.parse(data);
-                    if (data.message) createNotify(data.status, data.message);
-                    if (data.redirect) window.location.replace(data.redirect);
-                },
-                error: function() {
-                    createNotify('Fail', "Возникла ошибка!");
-                }
+            openDialog('Удаление группы', 'Вы действительно хотите удалить данную группу?', function() {
+                $.ajax({
+                    url: '/groups/remove',
+                    type: 'POST',
+                    data: {groupId: <%= group.id -%>},
+                    success: function(data) {
+                        data = JSON.parse(data);
+                        if (data.message) createNotify(data.status, data.message);
+                        if (data.redirect) window.location.replace(data.redirect);
+                    },
+                    error: function() {
+                        createNotify('Fail', "Возникла ошибка!");
+                    }
+                });
             });
         }
     </script>
@@ -25,18 +27,20 @@
     <a href="#" onclick="leaveGroupClick();">Покинуть группу</a>
     <script>
         function leaveGroupClick() {
-            $.ajax({
-                url: '/groups/leave',
-                type: 'POST',
-                data: {groupId: <%= group.id -%>},
-                success: function(data) {
-                    data = JSON.parse(data);
-                    if (data.message) createNotify(data.status, data.message);
-                    if (data.redirect) window.location.replace(data.redirect);
-                },
-                error: function() {
-                    createNotify('Fail', "Возникла ошибка!");
-                }
+            openDialog('Выход из группы', 'Вы действительно хотите покинуть данную группу?', function() {
+                $.ajax({
+                    url: '/groups/leave',
+                    type: 'POST',
+                    data: {groupId: <%= group.id -%>},
+                    success: function(data) {
+                        data = JSON.parse(data);
+                        if (data.message) createNotify(data.status, data.message);
+                        if (data.redirect) window.location.replace(data.redirect);
+                    },
+                    error: function() {
+                        createNotify('Fail', "Возникла ошибка!");
+                    }
+                });
             });
         }
     </script>
