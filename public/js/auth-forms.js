@@ -1,5 +1,6 @@
 var forms = $('form');
 
+// Перехвачиваем отправку формы и делаем запрос с помощью AJAX
 forms.submit(function (e){
     e.preventDefault();
 

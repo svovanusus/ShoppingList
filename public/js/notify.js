@@ -1,3 +1,4 @@
+// Функция для создания уведомления
 function createNotify(status, message) {
     var notifyId = "notify-info";
     if (status == 'Fail') notifyId = 'notify-error';
