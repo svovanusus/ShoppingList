@@ -34,7 +34,6 @@ module.exports = (req, res) => {
                     console.log(err);
                     res.send(JSON.stringify({status: 'Fail', message: 'В процессе обработки произошла неизвестная ошибка.'}));
                 });
-                //res.send(JSON.stringify({status: 'OK', message: 'Test'}));
             } else if (req.body.action == 'cancel') {
                 invite.destroy()
                 .then(() => {

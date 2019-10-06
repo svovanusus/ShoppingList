@@ -21,10 +21,12 @@ module.exports = (req, res) => {
                         res.send(JSON.stringify({status: 'OK', message: 'Вы успешно зарегистрированы! Теперь вы мобете авторищоваться.', redirect: '/sign-in?prev=reg-success'}));
                     })
                     .catch(err => {
+                        console.log(err);
                         res.send(JSON.stringify({status: 'Fail', message: 'В процессе обработки данных возникла ошибка!'}));
                     });
             })
             .catch(err => {
+                console.log(err);
                 res.send(JSON.stringify({status: 'Fail', message: 'Возникла неизвестная ошибка!'}));
             });
     } else {

@@ -89,17 +89,15 @@ require('./app/ws').init(app);
 // eslint-disable-next-line no-unused-vars
 app.use(function(req, res, next){
     res.status(404);
-    res.render('404');
+    res.render('404', { title: '404 - Не найдено!', user: req.user });
 });
 
 // Error handling 500
-/*
 // eslint-disable-next-line no-unused-vars
 app.use(function(err, req, res, next){
     res.status(err.status || 500);
-    res.render('500', { error: err });
+    res.render('500', { title: 'Ошибка сервера!', user: req.user, error: err });
 });
-*/
 
 /*===== LISTEN =====*/
 
