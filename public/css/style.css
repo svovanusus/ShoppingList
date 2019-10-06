@@ -130,11 +130,11 @@ body.blocked {
 }
 
 #notify-info.new, #notify-error.new {
-    top: -100%;
+    top: -200px;
 }
 
 #notify-info.rm, #notify-error.rm {
-    right: -100%;
+    right: -500px;
 }
 
 header.page-header {
@@ -295,13 +295,13 @@ a.group-link.grid {
     color: #ffffff;
     position: absolute;
     top: 0;
-    right: -100%;
+    right: -50px;
     background: #890029;
     font-size: 15px;
     line-height: 20px;
     padding: 10px 15px;
 
-    transition: right ease-in-out .6s, background ease-in-out .2s;
+    transition: right ease-in-out .4s .2s, background ease-in-out .2s;
 }
 
 .slist-container > .slist:hover > header.slist-header > a.del-button  {
