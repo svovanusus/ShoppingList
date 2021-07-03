@@ -1,4 +1,4 @@
-var ws = new WebSocket('ws://localhost:3000/lists/' + groupId);
+var ws = new WebSocket('ws://' + window.location.host + '/lists/' + groupId);
 
 var slistContainer = $('.slist-container');
 
