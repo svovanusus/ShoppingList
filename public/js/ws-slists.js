@@ -1,4 +1,4 @@
-var ws = new WebSocket((window.location.protocol === 'https' ? 'wss' : 'ws') + '://' + window.location.host + '/lists/' + groupId);
+var ws = new WebSocket((window.location.protocol === 'https:' ? 'wss' : 'ws') + '://' + window.location.host + '/lists/' + groupId);
 
 var slistContainer = $('.slist-container');
 
